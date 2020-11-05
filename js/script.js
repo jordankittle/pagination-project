@@ -11,11 +11,15 @@ const studentsPerPage = 9;
   * Append each returned list item to the unordered list
 **/
 function showPage(list, page) {
-	
 	const startIndex = (page * studentsPerPage) - studentsPerPage ;
 	const endIndex = page * studentsPerPage;
 	const ul = document.querySelector('.student-list');
 	ul.innerHTML = '';
+
+	if( list.length === 0 ){
+		ul.innerHTML = '<h3 style="font-size:2.5em">No Results</h1>';
+	}
+
 	for( let i = 0; i < list.length; i++ ){
 		if ( i >= startIndex && i < endIndex ){
 			const li = generateListItem( list[i] );
@@ -55,7 +59,6 @@ function generateListItem (student) {
   *This function will create and insert/append the elements needed for the pagination buttons
 **/
 function addPagination ( list ) {
-	console.log(list);
 	const pagesToDisplay = Math.ceil( (list.length / studentsPerPage) );
 	const linkList = document.querySelector('.link-list');
 	linkList.innerHTML = '';
@@ -99,10 +102,11 @@ searchForm.addEventListener('keyup', (e) => {
 		if ( name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1)  {
 			filteredData.push(data[i]);
 		}
-		showPage(filteredData, 1);
-		addPagination(filteredData);
+		
 		
 	}
+	showPage(filteredData, 1);
+	addPagination(filteredData);
 });
 
 
