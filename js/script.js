@@ -24,46 +24,23 @@ This function will create and insert/append the elements needed to display a "pa
 		}
 	}
 
-	function generateListItem(student) {
-		
+	
+
+	function generateListItem (student) {
 		const studentList = document.querySelector('.student-list');
 		const listItem = document.createElement('li');
-		listItem.className = 'student-item cf';
-		
-		const student_details = document.createElement('div');
-		student_details.className = 'student-details';
-
-		const avatar = document.createElement('img');
-		avatar['src']	= student.picture.large;
-		avatar['alt'] = 'Profile Picture';
-		avatar.className = 'avatar';
-		student_details.appendChild(avatar);
-
-		const name = document.createElement('h3');
-		name.textContent = `${student.name.title} ${student.name.first} ${student.name.last}`;
-		student_details.appendChild(name);
-
-		const email = document.createElement('span');
-		email.className = 'email';
-		email.textContent = student.email;
-		student_details.appendChild(email);
-
-		listItem.appendChild(student_details);
-
-		const joined_details = document.createElement('div');
-		joined_details.className = 'joined-details';
-
-		const date = document.createElement('span');
-		date.className = 'date';
-		date.textContent = `Joined ${student.registered.date}`;
-
-		joined_details.appendChild(date);
-		listItem.appendChild(joined_details);
-
+		listItem.className = 'student-item cf'; 
+		listItem.innerHTML = `
+			<div class="student-details">
+				<img class="avatar" src="${student.picture.large}">
+				<h3>${student.name.first} ${student.name.last}</h3>
+				<span class="email">${student.email}</span>
+			</div>
+			<div class="joined-details">
+				<span class="date">Joined ${student.registered.date}</span>
+			</div>
+		`;
 		studentList.appendChild(listItem);
-
-			
-		
 
 	}
 
@@ -76,6 +53,6 @@ This function will create and insert/append the elements needed for the paginati
 
 // Call functions
 
-showPage(data, 2);
+showPage(data, 1);
 
 });
