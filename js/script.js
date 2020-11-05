@@ -16,7 +16,6 @@ function showPage(list, page) {
 	const endIndex = page * studentsPerPage;
 	const ul = document.querySelector('.student-list');
 	ul.innerHTML = '';
-	console.log(ul);
 	for( let i = 0; i < list.length; i++ ){
 		if ( i >= startIndex && i < endIndex ){
 			const li = generateListItem( list[i] );
@@ -56,6 +55,7 @@ function generateListItem (student) {
   *This function will create and insert/append the elements needed for the pagination buttons
 **/
 function addPagination ( list ) {
+	console.log(list);
 	const pagesToDisplay = Math.ceil( (list.length / studentsPerPage) );
 	const linkList = document.querySelector('.link-list');
 	linkList.innerHTML = '';
@@ -64,8 +64,9 @@ function addPagination ( list ) {
 		listItem .innerHTML = `<button type="button">${i}</button>`;
 		linkList.appendChild(listItem);
 	}
-	
-	linkList.children[0].firstElementChild.className = 'active';
+	if (linkList.children.length > 0){
+		linkList.children[0].firstElementChild.className = 'active';
+	}
 
 	linkList.addEventListener('click', (e) => {
 		const target = e.target;
@@ -75,12 +76,34 @@ function addPagination ( list ) {
 			}
 		}
 		target.className = 'active';
-		showPage(data, target.textContent)
+		showPage(list, target.textContent)
 		
 	});
 
 }
 
+const header = document.querySelector('header.header');
+header.insertAdjacentHTML('beforeend',  `
+	<label for="search" class="student-search">
+            <input id="search" placeholder="Search by name...">
+            <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+    </label>
+`);
+const searchForm = document.querySelector('#search');
+
+searchForm.addEventListener('keyup', (e) => {
+	const filteredData = [];
+	const searchTerm = searchForm.value;
+	for( let i = 0; i < data.length; i++ ) {
+		const name = data[i].name.first + ' ' + data[i].name.last;
+		if ( name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1)  {
+			filteredData.push(data[i]);
+		}
+		showPage(filteredData, 1);
+		addPagination(filteredData);
+		
+	}
+});
 
 
 // Call functions
