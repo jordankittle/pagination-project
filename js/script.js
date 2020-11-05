@@ -25,7 +25,7 @@ function showPage(list, page) {
 		
 	}
 	
-	addPagination(list);
+	
 }
 
 
@@ -59,13 +59,25 @@ function addPagination ( list ) {
 	const pagesToDisplay = Math.ceil( (list.length / studentsPerPage) );
 	const linkList = document.querySelector('.link-list');
 	linkList.innerHTML = '';
-	for ( let i = 0; i < pagesToDisplay; i++ ) {
+	for ( let i = 1; i <= pagesToDisplay; i++ ) {
 		const listItem = document.createElement('li');
 		listItem .innerHTML = `<button type="button">${i}</button>`;
 		linkList.appendChild(listItem);
 	}
 	
 	linkList.children[0].firstElementChild.className = 'active';
+
+	linkList.addEventListener('click', (e) => {
+		const target = e.target;
+		if ( target.type === 'button' ) {
+			for ( let i = 0; i < linkList.children.length; i++ ) {
+				linkList.children[i].firstElementChild.className = ''; 
+			}
+		}
+		target.className = 'active';
+		showPage(data, target.textContent)
+		
+	});
 
 }
 
@@ -74,3 +86,4 @@ function addPagination ( list ) {
 // Call functions
 
 showPage(data, 1);
+addPagination(data);
