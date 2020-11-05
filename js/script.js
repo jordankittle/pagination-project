@@ -79,9 +79,10 @@ function addPagination ( list ) {
 			for ( let i = 0; i < linkList.children.length; i++ ) {
 				linkList.children[i].firstElementChild.className = ''; 
 			}
-		}
 		target.className = 'active';
 		showPage(list, target.textContent)
+		}
+		
 		
 	});
 
