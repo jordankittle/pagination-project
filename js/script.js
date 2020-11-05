@@ -1,5 +1,6 @@
 /**
-  * Pagination project - Treehouse techdegree project 2 - Data Pagination and Filtering
+  * Pagination project - Treehouse techdegree project 2 by Jordan Kittle
+  *Data Pagination and Filtering
 **/
 
 // Declare students per page once so functionality is easy to change if desired
@@ -16,6 +17,7 @@ function showPage(list, page) {
 	const ul = document.querySelector('.student-list');
 	ul.innerHTML = '';
 
+	//Display 'No Results' if list is empty
 	if( list.length === 0 ){
 		ul.innerHTML = '<h3 style="font-size:2.5em">No Results</h1>';
 	}
@@ -33,7 +35,7 @@ function showPage(list, page) {
 
 
 /** Generate List Item function
-  * Create an LI element on the page and populate its innerHTML with student details
+  * Create an LI element and populate its innerHTML with student details
   * Return the LI
 **/
 function generateListItem (student) {
@@ -55,8 +57,8 @@ function generateListItem (student) {
 }
 
 /**
-  *Create the `addPagination` function
-  *This function will create and insert/append the elements needed for the pagination buttons
+  *addPagination Function
+  *Add pagination buttons depending on amount of items in list and students to display on each page
 **/
 function addPagination ( list ) {
 	const pagesToDisplay = Math.ceil( (list.length / studentsPerPage) );
@@ -85,6 +87,10 @@ function addPagination ( list ) {
 
 }
 
+
+/**Add the search bar and the event listener for keyboard events
+  * Filter data and call showPage immediately after key up
+ **/
 const header = document.querySelector('header.header');
 header.insertAdjacentHTML('beforeend',  `
 	<label for="search" class="student-search">
@@ -110,7 +116,7 @@ searchForm.addEventListener('keyup', (e) => {
 });
 
 
-// Call functions
 
+//Load content and display pagination 
 showPage(data, 1);
 addPagination(data);
