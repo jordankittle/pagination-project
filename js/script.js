@@ -19,7 +19,7 @@ function showPage(list, page) {
 
 	//Display 'No Results' if list is empty
 	if( list.length === 0 ){
-		ul.innerHTML = '<h3 style="font-size:2.5em">No Results</h1>';
+		ul.innerHTML = '<h3 style="font-size:2.5em">No Results</h3>';
 	}
 
 	for( let i = 0; i < list.length; i++ ){
